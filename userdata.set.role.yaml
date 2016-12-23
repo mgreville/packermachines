@@ -1,0 +1,9 @@
+#cloud-config
+
+runcmd:
+  - curl -k https://puppet.grevco.org:8140/packages/current/install.bash | bash
+runcmd:
+  - mkdir -p /etc/puppetlabs/facter/facts.d
+write-files:
+  - path: /etc/puppetlabs/facter/facts.d/role.yaml 
+    content: 'role: standard'

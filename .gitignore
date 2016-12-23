@@ -1,0 +1,4 @@
+*.iso
+*.sw*
+output_centos/
+packer_cache/

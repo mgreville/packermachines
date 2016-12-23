@@ -1,0 +1,43 @@
+#version=DEVEL
+# System authorization information
+auth --enableshadow --passalgo=sha512
+# Use CDROM installation media
+cdrom
+# Use text mode install
+text
+# Run the Setup Agent on first boot
+#firstboot --enable
+ignoredisk --only-use=vda
+# Keyboard layouts
+keyboard --vckeymap=us --xlayouts='us'
+# System language
+lang en_US.UTF-8
+
+# Network information
+network  --bootproto=dhcp --device=eth0 --ipv6=auto
+network  --hostname=packer.test
+
+# Root password
+rootpw --iscrypted $6$g7PNe0TwQG1lc/dt$QdHC8/xGRokKFH7UwgjYi1gMscGVGzZXtftd3v4gqPKPzb3vYer.yvOdJjslTSbWdbzLA2L5CC2nuLQPZvfhm0
+# Do not configure the X Window System
+skipx
+# System timezone
+timezone Australia/Melbourne --isUtc
+# System bootloader configuration
+bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=vda
+autopart --type=lvm
+# Partition clearing information
+clearpart --all --initlabel --drives=vda
+
+eula --agreed
+
+%packages
+@core
+kexec-tools
+
+%end
+
+%addon com_redhat_kdump --enable --reserve-mb='auto'
+
+%end
+
